@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "771832827318",
+    "firebase_url": "https://karmag8-51c42.firebaseio.com",
+    "project_id": "karmag8-51c42",
+    "storage_bucket": "karmag8-51c42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771832827318:android:85409f53102c19346b4517",
+        "android_client_info": {
+          "package_name": "com.cacomas.karmag8"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771832827318-tqprj5cvcrun1but4q6mvbph508p83k9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cacomas.karmag8",
+            "certificate_hash": "a5be0c54a6ef57b2fa7c0cc9dd55774fbb28a063"
+          }
+        },
+        {
+          "client_id": "771832827318-hhavi919g63hsjb1asp3s802dc5q6ncu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLf0xW1aJTgzMxfRbEk_6kv5eGVdKLJac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771832827318-hhavi919g63hsjb1asp3s802dc5q6ncu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
