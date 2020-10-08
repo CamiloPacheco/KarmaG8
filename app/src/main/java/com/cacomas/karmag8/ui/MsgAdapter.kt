@@ -21,13 +21,15 @@ class MsgAdapter (val messages: ArrayList<Msg>): RecyclerView.Adapter<MsgAdapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(messages[position])
+        holder.initialize(messages[position])
+
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(msg: Msg) {
-            itemView.msgTextView.text =msg.user
-            itemView.userTextView.text = msg.txt
+        fun initialize(item: Msg){
+            itemView.msgTextView.text= item.txt
+            itemView.userTextView.text = item.user
+
         }
     }
 }

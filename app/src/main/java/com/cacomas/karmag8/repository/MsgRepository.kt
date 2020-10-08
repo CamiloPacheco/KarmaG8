@@ -12,29 +12,42 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 class MsgRepository {
-    val msgResponse = MutableLiveData<Msg>()
-    val database = Firebase.database.reference
-    //val myRef = database.getReference("messages")
 
-    fun SetMsg( msg: String){
-        database.child("messsages").push().setValue(msg)
+    val msgResponse = MutableLiveData<List<Msg>>()
+    val messageList = mutableListOf<Msg>()
+    private val database = Firebase.database.reference
+    //val myRef = database.getReference("messages")
+    
+    init{
+        viewMsg()
     }
-    fun GetMsg()=msgResponse
-    fun ViewMsg(){
+
+    fun setMsg(msg: Msg) {
+        database.child("messages").push().setValue(msg)
+        viewMsg()
+    }
+
+    fun getMsg() = msgResponse
+    fun viewMsg() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Get Msg object
-                val msg = dataSnapshot.getValue<Msg>()
-                msgResponse.postValue(msg)
+                messageList.clear()
+                for (childDataSnapshot in dataSnapshot.children) {
+                    val message: Msg = childDataSnapshot.getValue(Msg::class.java)!!
+                    //Log.v("MyOut", "" + childDataSnapshot.getKey()); //displays the key for the node
+                    //Log.v("MyOut", "" + message.id);
+                    messageList.add(message)
+                }
+                msgResponse.value = messageList
 
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 // Getting Post failed, log a message
-                Log.w(TAG, "load Msg:onCancelled", databaseError.toException())
-
+                Log.w("MyOut", "loadPost:onCancelled", databaseError.toException())
+                // ...
             }
         }
-        database.addValueEventListener(postListener)
+        database.child("messages").addValueEventListener(postListener)
     }
 }

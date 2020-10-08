@@ -1,7 +1,8 @@
 package com.cacomas.karmag8.model
+import com.google.firebase.database.IgnoreExtraProperties
 
-class Msg (
-        var user: String,
-        var txt: String,
-
+@IgnoreExtraProperties
+data class Msg (
+        val txt: String? = "",
+        val user: String? = ""
 )

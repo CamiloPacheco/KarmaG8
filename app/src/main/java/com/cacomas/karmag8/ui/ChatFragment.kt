@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cacomas.karmag8.R
+import com.cacomas.karmag8.model.Msg
 import com.cacomas.karmag8.viewmodel.MsgViewModel
 import kotlinx.android.synthetic.main.fragment_chat.view.*
 
@@ -31,16 +32,17 @@ class ChatFragment : Fragment() {
         requireView().message_Recycler.adapter = adapter
         requireView().message_Recycler.layoutManager = LinearLayoutManager(requireContext())
 
+        msgViewModel.getMsg()
 
-        msgViewModel.getMsg().observe(viewLifecycleOwner, Observer { messages ->
-            adapter.messages.clear()
-            adapter.messages.add(messages)
-            adapter.notifyDataSetChanged()
-        })
+       msgViewModel.getMsg().observe(viewLifecycleOwner, Observer {
+           adapter.messages.clear()
+           adapter.messages.addAll(it)
+           adapter.notifyDataSetChanged()
+       })
 
         view.findViewById<Button>(R.id.sendButton).setOnClickListener {
            var txt :String = view.findViewById<TextView>(R.id.messageEditText).text.toString()
-            msgViewModel.SetMsg(txt)
+            msgViewModel.setMsg(Msg("Camilo",txt))
         }
     }
 
