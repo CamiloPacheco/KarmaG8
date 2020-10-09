@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/chat">
+    app:startDestination="@id/miFavorFragment">
     <fragment
-        android:id="@+id/chat"
-        android:name="com.cacomas.karmag8.ui.ChatFragment"
-        android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        android:id="@+id/miFavorFragment"
+        android:name="com.cacomas.karmag8.ui.MiFavorFragment"
+        android:label="fragment_mi_favor"
+        tools:layout="@layout/fragment_mi_favor" />
 </navigation>

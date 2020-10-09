@@ -9,5 +9,4 @@ class MsgViewModel : ViewModel() {
     private val repository = MsgRepository()
     fun setMsg(msg: Msg)= repository.setMsg(msg)
     fun getMsg()=repository.getMsg()
-    private fun viewMsg()=repository.viewMsg()
 }
