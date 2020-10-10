@@ -33,7 +33,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
         Log.d("MyOut","LoginFragment onViewCreated")
-        
+
         firebaseAuthViewModel.userCreated().observe(getViewLifecycleOwner(), Observer { status ->
             if (status == true){
                 Toast.makeText(

@@ -56,7 +56,7 @@ class LoginFragment : Fragment() {
                     this.requireContext(), "Logged Ok."+uid,
                     Toast.LENGTH_SHORT
                 ).show()
-                navController.navigate(R.id.chat)
+                navController.navigate(R.id.miFavorFragment)
             } else {
                 Toast.makeText(
                     this.requireContext(), "Logged failed.",

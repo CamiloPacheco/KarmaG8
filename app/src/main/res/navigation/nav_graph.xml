@@ -30,5 +30,14 @@
         android:id="@+id/miFavorFragment"
         android:name="com.cacomas.karmag8.ui.MiFavorFragment"
         android:label="fragment_mi_favor"
-        tools:layout="@layout/fragment_mi_favor" />
+        tools:layout="@layout/fragment_mi_favor" >
+        <action
+            android:id="@+id/action_miFavorFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.cacomas.karmag8.ui.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

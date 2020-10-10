@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.cacomas.karmag8.R
 import com.cacomas.karmag8.model.Favor
 import com.cacomas.karmag8.viewmodel.MiFavorViewModel
@@ -49,8 +50,11 @@ class MiFavorFragment : Fragment() {
             builder.setPositiveButton("OK") { _, _ ->
                 Toast.makeText(this.context, "EditText is " + editText.text.toString(), Toast.LENGTH_SHORT).show();
                 favorViewModel.setFavor(Favor(editText.text.toString(),editText2.text.toString()))
+                var navController = findNavController()
+                navController.navigate(R.id.profileFragment)
             }
             builder.show()
+
         }
     }
 
