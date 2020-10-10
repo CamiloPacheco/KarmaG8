@@ -9,4 +9,5 @@ class ProfileViewModel: ViewModel() {
     private val repository = ProfileRepository()
     fun getFavores()=repository.getFavores()
     fun getKarma()=repository.getKarma()
+    fun getUser()=repository.getUser()
 }

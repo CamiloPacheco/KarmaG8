@@ -38,34 +38,30 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var user = auth.currentUser
-
-        /**val profileUpdates = UserProfileChangeRequest.Builder()
-            .setDisplayName("Orlando")
-            .build()
-        user?.updateProfile(profileUpdates)
-            ?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.v("MyOut", "User profile updated.")
-                }
-            }*/
-
+        var nombreUsuario : String? = ""
+        var emailId: String = user?.email!!
 
         if (user != null) {
-            Log.v("MyOut", "usuario de esta vaina " + user.displayName)
+            Log.v("MyOut", "usuario de esta vaina " + emailId)
         }
 
-
+        profileViewModel.getUser().observe(viewLifecycleOwner, Observer {
+            for(usuarios in it){
+                if(usuarios.email == emailId){
+                    nombreUsuario = usuarios.username
+                    Log.v("MyOut", "usuario encontrado " +nombreUsuario)
+                }
+            }
+        })
 
         profileViewModel.getFavores().observe(viewLifecycleOwner, Observer {
             var contador = 0
             val arrayFavores = mutableListOf<FavorRealizado>()
 
             for (favor in it){
-                if (user != null) {
-                    if(favor.RealizadoPor == user.displayName && contador<3){
-                        arrayFavores.add(favor)
-                        contador++
-                    }
+                if(favor.RealizadoPor == nombreUsuario && contador<3){
+                    arrayFavores.add(favor)
+                    contador++
                 }
             }
             if(arrayFavores.size > 0){
@@ -86,12 +82,9 @@ class ProfileFragment : Fragment() {
         })
 
         profileViewModel.getKarma().observe(viewLifecycleOwner, Observer {
-
             for (karma in it){
-                if (user != null) {
-                    if(karma.User == user.displayName){
-                        view.findViewById<TextView>(R.id.karmaCoins).text = karma.puntos
-                    }
+                if(karma.User == nombreUsuario){
+                    view.findViewById<TextView>(R.id.karmaCoins).text = karma.puntos
                 }
             }
         })

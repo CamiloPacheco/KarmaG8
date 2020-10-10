@@ -8,6 +8,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.cacomas.karmag8.model.Msg
 import com.cacomas.karmag8.model.User
+import com.google.firebase.auth.UserProfileChangeRequest
 import dagger.Provides
 import javax.inject.Singleton
 
@@ -16,6 +17,7 @@ class RegisterRepository {
     val database = Firebase.database.reference
     var logged = MutableLiveData<String>()
     var userCreated = MutableLiveData<Boolean>()
+
 
     init {
         auth = Firebase.auth
@@ -26,7 +28,7 @@ class RegisterRepository {
         database.child("users").push().setValue(user)
     }
 
-    fun signUp(email: String, password : String){
+    fun signUp(email: String, password : String, username : String){
         Log.d("MyOut","email="+email+" contraseña= "+password)
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener{ task ->
@@ -35,7 +37,7 @@ class RegisterRepository {
                     Log.d("MyOut", "createUserWithEmail:success")
                     val user = auth.currentUser
                     if (user != null) {
-                        writeNewUser(User(user.email, user.uid))
+                        writeNewUser(User(user.email, user.uid,username))
                     }
                     userCreated.value = true;
                 } else {

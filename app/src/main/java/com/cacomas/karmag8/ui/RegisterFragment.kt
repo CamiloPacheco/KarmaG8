@@ -54,7 +54,7 @@ class RegisterFragment : Fragment() {
             var email = view.findViewById<TextView>(R.id.emailRegTxt).text.toString()
             var password = view.findViewById<TextView>(R.id.passwordRegTxt).text.toString()
             Log.d("MyOut","email="+email+" contraseña= "+password)
-            firebaseAuthViewModel.signUp(email,password)
+            firebaseAuthViewModel.signUp(email,password,username)
             navController.navigate(R.id.loginFragment)
         }
     }
