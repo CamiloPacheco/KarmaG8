@@ -15,11 +15,11 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_miFavorFragment"
-            app:destination="@id/miFavorFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -30,14 +30,33 @@
         android:id="@+id/miFavorFragment"
         android:name="com.cacomas.karmag8.ui.MiFavorFragment"
         android:label="fragment_mi_favor"
-        tools:layout="@layout/fragment_mi_favor" >
-        <action
-            android:id="@+id/action_miFavorFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_mi_favor" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.cacomas.karmag8.ui.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.cacomas.karmag8.ui.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_miFavorFragment"
+            app:destination="@id/miFavorFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favorsFragment2"
+            app:destination="@id/favorsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favorsFragment"
+        android:name="com.cacomas.karmag8.ui.FavorsFragment"
+        android:label="fragment_favors"
+        tools:layout="@layout/fragment_favors" >
+        <action
+            android:id="@+id/action_favorsFragment_to_chat"
+            app:destination="@id/chat" />
+    </fragment>
 </navigation>
