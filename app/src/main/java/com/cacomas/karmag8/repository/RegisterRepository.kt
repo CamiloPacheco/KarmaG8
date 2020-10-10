@@ -2,6 +2,7 @@ package com.cacomas.karmag8.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.cacomas.karmag8.model.Karma
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
@@ -38,6 +39,8 @@ class RegisterRepository {
                     val user = auth.currentUser
                     if (user != null) {
                         writeNewUser(User(user.email, user.uid,username))
+                        var karma = Karma(username,"5")
+                        database.child("Karma").push().setValue(karma)
                     }
                     userCreated.value = true;
                 } else {
@@ -46,5 +49,6 @@ class RegisterRepository {
                 }
             }
     }
+
 
 }

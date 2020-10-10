@@ -7,6 +7,8 @@ import com.cacomas.karmag8.model.FavorRealizado
 import com.cacomas.karmag8.model.Karma
 import com.cacomas.karmag8.model.Msg
 import com.cacomas.karmag8.model.User
+import com.cacomas.karmag8.util.PreferenceProvider
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -40,7 +42,7 @@ class ProfileRepository {
                     //val message: Msg = childDataSnapshot.getValue(Msg::class.java)!!
                     val favor: FavorRealizado = childDataSnapshot.getValue(FavorRealizado::class.java)!!
                     //Log.v("MyOut", "" + childDataSnapshot.getKey()); //displays the key for the node
-                    Log.v("MyOut", "usuario del favor" + favor.User);
+                    Log.v("MyOut", "usuario del favor: " + favor.User);
                     favorList.add(favor)
                 }
                 favorResponse.value = favorList
@@ -65,7 +67,7 @@ class ProfileRepository {
                     //val message: Msg = childDataSnapshot.getValue(Msg::class.java)!!
                     val karma: Karma = childDataSnapshot.getValue(Karma::class.java)!!
                     //Log.v("MyOut", "" + childDataSnapshot.getKey()); //displays the key for the node
-                    Log.v("MyOut", "Puntos:" + karma.puntos);
+                    Log.v("MyOut", "Puntos:" + karma.puntos+" usuario: "+karma.user);
                     karmaList.add(karma)
                 }
                 karmaResponse.value = karmaList
@@ -106,6 +108,11 @@ class ProfileRepository {
         database.child("users").addValueEventListener(postListener)
         viewFavor()
         viewKarma()
+    }
+
+    fun logOut(){
+        PreferenceProvider.setLogged("")
+        Firebase.auth.signOut()
     }
 
 }

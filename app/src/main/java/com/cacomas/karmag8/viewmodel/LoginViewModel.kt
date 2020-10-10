@@ -28,8 +28,6 @@ class LoginViewModel : ViewModel() {
         repository.signIn(email,password)
     }
 
-    fun logOut(){
-        repository.logOut()
-    }
+
 
 }

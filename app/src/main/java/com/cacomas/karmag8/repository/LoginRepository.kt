@@ -10,8 +10,10 @@ import com.cacomas.karmag8.model.Msg
 import com.cacomas.karmag8.model.User
 import dagger.Provides
 import javax.inject.Singleton
+import com.cacomas.karmag8.util.PreferenceProvider
 
 class LoginRepository {
+
     private lateinit var auth: FirebaseAuth
     val database = Firebase.database.reference
     var logged = MutableLiveData<String>()
@@ -35,6 +37,7 @@ class LoginRepository {
                         Log.d("MyOut", "signInWithEmailAndPassword:success " + user.email)
                         Log.d("MyOut", "signInWithEmailAndPassword:success " + user.uid)
                         logged.value = user.uid
+                        PreferenceProvider.setLogged(user.uid)
                     }
 
                 } else {
@@ -44,8 +47,5 @@ class LoginRepository {
             }
     }
 
-    fun logOut(){
-        logged.value = ""
-        Firebase.auth.signOut()
-    }
+
 }

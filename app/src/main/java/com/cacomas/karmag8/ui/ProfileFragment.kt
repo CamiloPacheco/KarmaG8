@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.cacomas.karmag8.R
 import com.cacomas.karmag8.model.FavorRealizado
 import com.cacomas.karmag8.viewmodel.ProfileViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -83,11 +85,17 @@ class ProfileFragment : Fragment() {
 
         profileViewModel.getKarma().observe(viewLifecycleOwner, Observer {
             for (karma in it){
-                if(karma.User == nombreUsuario){
+                if(karma.user == nombreUsuario){
                     view.findViewById<TextView>(R.id.karmaCoins).text = karma.puntos
                 }
             }
         })
+
+        view.findViewById<FloatingActionButton>(R.id.loggoutBtn).setOnClickListener {
+            profileViewModel.logOut()
+            var navController = findNavController()
+            navController.navigate(R.id.loginFragment)
+        }
 
     }
 

@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.cacomas.karmag8.R
+import com.cacomas.karmag8.util.PreferenceProvider
 import com.cacomas.karmag8.viewmodel.LoginViewModel
 import com.cacomas.karmag8.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +35,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
         Log.d("MyOut","LoginFragment onViewCreated")
+
         loginViewModel.userCreated().observe(getViewLifecycleOwner(), Observer { status ->
             if (status == true){
                 Toast.makeText(
@@ -51,7 +53,8 @@ class LoginFragment : Fragment() {
 
         loginViewModel.logged().observe(getViewLifecycleOwner(), Observer { uid ->
             Log.d("MyOut","LoginFragment logged with "+uid)
-            if (uid != ""){
+            var aux = PreferenceProvider.getLogged()
+            if (aux != ""){
                 Toast.makeText(
                     this.requireContext(), "Logged Ok."+uid,
                     Toast.LENGTH_SHORT

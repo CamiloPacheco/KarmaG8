@@ -10,4 +10,7 @@ class ProfileViewModel: ViewModel() {
     fun getFavores()=repository.getFavores()
     fun getKarma()=repository.getKarma()
     fun getUser()=repository.getUser()
+    fun logOut(){
+        repository.logOut()
+    }
 }
