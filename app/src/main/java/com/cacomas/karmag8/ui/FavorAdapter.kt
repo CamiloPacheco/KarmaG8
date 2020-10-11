@@ -9,7 +9,7 @@ import com.cacomas.karmag8.model.Favor
 import kotlinx.android.synthetic.main.item_favor.view.*
 
 
-class FavorAdapter(val favors: ArrayList<Favor>, var userName: String): RecyclerView.Adapter<FavorAdapter.ViewHolder>() {
+class FavorAdapter(val favors: ArrayList<Favor>, var userName: String, var clickListener: OnItemFavorClickListener): RecyclerView.Adapter<FavorAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =  LayoutInflater.from(parent.context).inflate(R.layout.item_favor, parent, false)
@@ -21,19 +21,28 @@ class FavorAdapter(val favors: ArrayList<Favor>, var userName: String): Recycler
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.initialize(favors[position],userName)
+        holder.initialize(favors[position],userName, clickListener)
 
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun initialize(item: Favor,name: String){
+        fun initialize(item: Favor,name: String, action:OnItemFavorClickListener){
             if ( name!=item.user){
                 itemView.FavorNameTxt.text= item.name
                 itemView.FavorUserTxt.text = item.user
                 itemView.FavorStateTxt.text= item.state
 
+                itemView.Aceptarbutton.setOnClickListener {
+                    action.onItemClick(item, adapterPosition)
+                }
+
             }
 
         }
     }
+
+    interface OnItemFavorClickListener{
+        fun onItemClick(item: Favor, position: Int)
+    }
+
 }
