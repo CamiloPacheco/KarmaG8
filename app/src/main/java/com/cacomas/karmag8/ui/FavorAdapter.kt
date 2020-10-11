@@ -7,7 +7,11 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.cacomas.karmag8.R
 import com.cacomas.karmag8.model.Favor
+import kotlinx.android.synthetic.main.fragment_mi_favor.view.*
 import kotlinx.android.synthetic.main.item_favor.view.*
+import kotlinx.android.synthetic.main.item_favor.view.CheckButton
+import kotlinx.android.synthetic.main.item_favor.view.FavorNameTxt
+import kotlinx.android.synthetic.main.item_favor.view.FavorStateTxt
 
 
 class FavorAdapter(val favors: ArrayList<Favor>, var userName: String, var clickListener: OnItemFavorClickListener): RecyclerView.Adapter<FavorAdapter.ViewHolder>() {
@@ -38,6 +42,9 @@ class FavorAdapter(val favors: ArrayList<Favor>, var userName: String, var click
                     itemView.Aceptarbutton.isVisible=false
                     if(item.realizadopor==name)
                         itemView.CheckButton.isVisible=true
+                        itemView.CheckButton.setOnClickListener {
+                            action.onItemClickCheck(item, adapterPosition)
+                        }
 
                 }else{
 
@@ -56,6 +63,7 @@ class FavorAdapter(val favors: ArrayList<Favor>, var userName: String, var click
 
     interface OnItemFavorClickListener{
         fun onItemClick(item: Favor, position: Int)
+        fun onItemClickCheck(item: Favor, position: Int)
     }
 
 }

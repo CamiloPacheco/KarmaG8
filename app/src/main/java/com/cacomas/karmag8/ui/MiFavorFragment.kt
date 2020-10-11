@@ -27,8 +27,8 @@ import kotlinx.android.synthetic.main.add_favor_form.*
 
 class MiFavorFragment : Fragment() {
 
-    private val favorViewModel: MiFavorViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
+    private val favorViewModel: MiFavorViewModel by activityViewModels()
     private lateinit var auth: FirebaseAuth
 
     init {
