@@ -74,5 +74,8 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
 
     override fun onItemClickCheck(item: Favor, position: Int) {
         Log.v("MyOut", "OnClickCheckButton funcionando  " )
+        nombreUsuario?.let { favorViewModel.endFavor(item, it) }
+
+
     }
 }

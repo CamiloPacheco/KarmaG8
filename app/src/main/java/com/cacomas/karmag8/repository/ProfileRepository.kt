@@ -1,25 +1,20 @@
 package com.cacomas.karmag8.repository
 
-import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.cacomas.karmag8.model.FavorRealizado
-import com.cacomas.karmag8.model.Karma
-import com.cacomas.karmag8.model.Msg
-import com.cacomas.karmag8.model.User
+import com.cacomas.karmag8.model.*
 import com.cacomas.karmag8.util.PreferenceProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 class ProfileRepository {
 
-    val favorResponse = MutableLiveData<List<FavorRealizado>>()
-    val favorList = mutableListOf<FavorRealizado>()
+    val favorResponse = MutableLiveData<List<Favor>>()
+    val favorList = mutableListOf<Favor>()
     val karmaResponse = MutableLiveData<List<Karma>>()
     val karmaList = mutableListOf<Karma>()
     val userResponse = MutableLiveData<List<User>>()
@@ -40,9 +35,9 @@ class ProfileRepository {
                 favorList.clear()
                 for (childDataSnapshot in dataSnapshot.children) {
                     //val message: Msg = childDataSnapshot.getValue(Msg::class.java)!!
-                    val favor: FavorRealizado = childDataSnapshot.getValue(FavorRealizado::class.java)!!
+                    val favor: Favor = childDataSnapshot.getValue(Favor::class.java)!!
                     //Log.v("MyOut", "" + childDataSnapshot.getKey()); //displays the key for the node
-                    Log.v("MyOut", "usuario del favor: " + favor.User);
+                    Log.v("MyOut", "usuario del favor: " + favor.user);
                     favorList.add(favor)
                 }
                 favorResponse.value = favorList

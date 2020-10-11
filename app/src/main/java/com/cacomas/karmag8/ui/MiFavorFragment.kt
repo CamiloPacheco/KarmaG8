@@ -30,6 +30,7 @@ class MiFavorFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by activityViewModels()
     private val favorViewModel: MiFavorViewModel by activityViewModels()
     private lateinit var auth: FirebaseAuth
+    private lateinit var MyFavor:Favor
 
     init {
         auth = Firebase.auth
@@ -70,6 +71,7 @@ class MiFavorFragment : Fragment() {
             if (it.isNotEmpty()){
                 for(favor in it){
                     if(favor.user == nombreUsuario){
+                        MyFavor=favor
                         favorName.text = favor.name
                         favorState.text = favor.state
                         if (favor.state=="Asignado")
@@ -91,11 +93,15 @@ class MiFavorFragment : Fragment() {
             val editText2  = dialogLayout.findViewById<EditText>(R.id.editText2)
             builder.setView(dialogLayout)
             builder.setPositiveButton("OK") { _, _ ->
-                favorViewModel.setFavor(Favor(editText.text.toString(),"Inicial",nombreUsuario,editText2.text.toString(),""))
+                favorViewModel.setFavor(Favor(editText.text.toString(),"Inicial",nombreUsuario,editText2.text.toString(),"","",""))
                 builder.context
             }
             builder.show()
 
+        }
+
+        view.findViewById<FloatingActionButton>(R.id.CheckButton).setOnClickListener{
+            nombreUsuario?.let { it1 -> favorViewModel.endFavor(MyFavor, it1) }
         }
     }
 

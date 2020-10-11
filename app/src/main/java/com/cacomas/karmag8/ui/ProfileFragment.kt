@@ -11,13 +11,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.cacomas.karmag8.R
-import com.cacomas.karmag8.model.FavorRealizado
+import com.cacomas.karmag8.model.Favor
 import com.cacomas.karmag8.viewmodel.ProfileViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 
 class ProfileFragment : Fragment() {
 
@@ -56,27 +55,27 @@ class ProfileFragment : Fragment() {
             }
         })
 
-        profileViewModel.getFavores().observe(viewLifecycleOwner, Observer {
+        profileViewModel.getFavor().observe(viewLifecycleOwner, Observer {
             var contador = 0
-            val arrayFavores = mutableListOf<FavorRealizado>()
+            val arrayFavores = mutableListOf<Favor>()
 
-            for (favor in it){
-                if(favor.RealizadoPor == nombreUsuario && contador<3){
-                    arrayFavores.add(favor)
+            for (obj in it){
+                if(obj.realizadopor.equals(nombreUsuario)   && contador<3){
+                    arrayFavores.add(obj)
                     contador++
                 }
             }
             if(arrayFavores.size > 0){
-                view.findViewById<TextView>(R.id.nameFavor1).text = arrayFavores[0].Tipo
-                view.findViewById<TextView>(R.id.idFavor1).text = arrayFavores[0].User
+                view.findViewById<TextView>(R.id.nameFavor1).text = arrayFavores[0].name
+                view.findViewById<TextView>(R.id.idFavor1).text = arrayFavores[0].descripcion
             }
             if(arrayFavores.size > 1){
-                view.findViewById<TextView>(R.id.nameFavor2).text = arrayFavores[1].Tipo
-                view.findViewById<TextView>(R.id.idFavor2).text = arrayFavores[1].User
+                view.findViewById<TextView>(R.id.nameFavor2).text = arrayFavores[1].name
+                view.findViewById<TextView>(R.id.idFavor2).text = arrayFavores[1].descripcion
             }
             if(arrayFavores.size == 3){
-                view.findViewById<TextView>(R.id.nameFavor3).text = arrayFavores[2].Tipo
-                view.findViewById<TextView>(R.id.idFavor3).text = arrayFavores[2].User
+                view.findViewById<TextView>(R.id.nameFavor3).text = arrayFavores[2].name
+                view.findViewById<TextView>(R.id.idFavor3).text = arrayFavores[2].descripcion
             }
 
 

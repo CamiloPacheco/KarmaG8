@@ -7,5 +7,7 @@ data class Favor (
     val state: String? = "",
     val user: String? = "",
     val descripcion: String? = "",
+    val terminado1: String? = "",
+    val terminado2: String? = "",
     var realizadopor: String? = ""
 )

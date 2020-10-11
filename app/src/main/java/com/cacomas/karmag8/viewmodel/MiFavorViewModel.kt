@@ -10,5 +10,5 @@ class MiFavorViewModel: ViewModel() {
     fun setFavor(favor: Favor)= repository.setFavor(favor)
     fun getFavor()=repository.getFavor()
     fun updateFavor(favor:Favor)=repository.updateFavor(favor)
-
+    fun endFavor(favor:Favor,currentUser:String)=repository.endFavor(favor,currentUser)
 }
