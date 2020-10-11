@@ -9,5 +9,6 @@ class MiFavorViewModel: ViewModel() {
     private val repository = MiFavorRepository()
     fun setFavor(favor: Favor)= repository.setFavor(favor)
     fun getFavor()=repository.getFavor()
+    fun updateFavor(favor:Favor)=repository.updateFavor(favor)
 
 }

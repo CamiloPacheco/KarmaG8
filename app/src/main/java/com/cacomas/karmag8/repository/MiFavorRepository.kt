@@ -44,6 +44,28 @@ class MiFavorRepository {
         }
         database.child("Mifavor").addValueEventListener(postListener)
     }
+    fun updateFavor(favorAux:Favor) {
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                favorList.clear()
+                for (childDataSnapshot in dataSnapshot.children) {
+                    val favor: Favor = childDataSnapshot.getValue(Favor::class.java)!!
+                    if(favor.user==favorAux.user){
+                        database.child("Mifavor").child(childDataSnapshot.key.toString()).child("state").setValue("Asignado")
+                        database.child("Mifavor").child(childDataSnapshot.key.toString()).child("realizadopor").setValue(favorAux.realizadopor)
+                    }
+                }
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("MyOut", "loadPost:onCancelled", databaseError.toException())
+                // ...
+            }
+        }
+        database.child("Mifavor").addValueEventListener(postListener)
+    }
 
 
 }

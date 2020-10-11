@@ -3,6 +3,7 @@ package com.cacomas.karmag8.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.cacomas.karmag8.R
 import com.cacomas.karmag8.model.Favor
@@ -21,22 +22,34 @@ class FavorAdapter(val favors: ArrayList<Favor>, var userName: String, var click
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.initialize(favors[position],userName, clickListener)
+        holder.initialize(favors.get(position),userName, clickListener)
 
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun initialize(item: Favor,name: String, action:OnItemFavorClickListener){
-            if ( name!=item.user){
-                itemView.FavorNameTxt.text= item.name
-                itemView.FavorUserTxt.text = item.user
-                itemView.FavorStateTxt.text= item.state
 
-                itemView.Aceptarbutton.setOnClickListener {
-                    action.onItemClick(item, adapterPosition)
+            itemView.FavorNameTxt.text= item.name
+            itemView.FavorUserTxt.text = item.user
+            itemView.FavorStateTxt.text= item.state
+            if ( name!=item.user){
+
+                if(item.state=="Asignado"){
+                    itemView.Aceptarbutton.isVisible=false
+                    if(item.realizadopor==name)
+                        itemView.CheckButton.isVisible=true
+
+                }else{
+
+                    itemView.Aceptarbutton.setOnClickListener {
+                        action.onItemClick(item, adapterPosition)
+                    }
+
                 }
 
-            }
+            }else
+                itemView.Aceptarbutton.isVisible=false
+
 
         }
     }

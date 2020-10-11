@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -65,11 +66,15 @@ class MiFavorFragment : Fragment() {
         favorViewModel.getFavor().observe(viewLifecycleOwner, Observer {
             val favorName= view.findViewById<TextView>(R.id.FavorNameTxt)
             val favorState= view.findViewById<TextView>(R.id.FavorStateTxt)
+            val CheckButton=view.findViewById<FloatingActionButton>(R.id.CheckButton)
             if (it.isNotEmpty()){
                 for(favor in it){
                     if(favor.user == nombreUsuario){
                         favorName.text = favor.name
                         favorState.text = favor.state
+                        if (favor.state=="Asignado")
+                            CheckButton.isVisible=true
+
                     }
                 }
 

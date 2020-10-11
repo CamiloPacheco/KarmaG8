@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_favors.view.*
 
 class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
     var userName =""
+    var nombreUsuario : String? = ""
     private val adapter =FavorAdapter(ArrayList(), userName, this)
     private val favorViewModel: MiFavorViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
@@ -45,7 +46,7 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
         requireView().favors_Recycler.layoutManager = LinearLayoutManager(requireContext())
 
         var user = auth.currentUser
-        var nombreUsuario : String? = ""
+
         var emailId: String = user?.email!!
 
         profileViewModel.getUser().observe(viewLifecycleOwner, Observer {
@@ -67,5 +68,7 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
 
     override fun onItemClick(item: Favor, position: Int) {
         Log.v("MyOut", "Onclick Recicle funcionando " )
+        item.realizadopor= nombreUsuario
+        favorViewModel.updateFavor(item)
     }
 }
