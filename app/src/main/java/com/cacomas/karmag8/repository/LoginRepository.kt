@@ -36,8 +36,8 @@ class LoginRepository {
                     if (user != null) {
                         Log.d("MyOut", "signInWithEmailAndPassword:success " + user.email)
                         Log.d("MyOut", "signInWithEmailAndPassword:success " + user.uid)
-                        logged.value = user.uid
                         PreferenceProvider.setLogged(user.uid)
+                        logged.value = user.uid
                     }
 
                 } else {

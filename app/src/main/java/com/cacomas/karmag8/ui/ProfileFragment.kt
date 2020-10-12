@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import org.w3c.dom.Text
 
 class ProfileFragment : Fragment() {
 
@@ -51,6 +52,7 @@ class ProfileFragment : Fragment() {
                 if(usuarios.email == emailId){
                     nombreUsuario = usuarios.username
                     Log.v("MyOut", "usuario encontrado " +nombreUsuario)
+                    view.findViewById<TextView>(R.id.userNameLayout).setText(nombreUsuario)
                 }
             }
         })

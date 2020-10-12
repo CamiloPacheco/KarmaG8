@@ -61,10 +61,10 @@ class LoginFragment : Fragment() {
                 ).show()
                 navController.navigate(R.id.homeFragment)
             } else {
-                Toast.makeText(
+                /**Toast.makeText(
                     this.requireContext(), "Logged failed.",
                     Toast.LENGTH_SHORT
-                ).show()
+                ).show()*/
             }
 
         })

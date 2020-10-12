@@ -57,13 +57,16 @@ class FavorAdapter(val favors: ArrayList<Favor>, var userName: String, var click
             }else
                 itemView.Aceptarbutton.isVisible=false
 
-
+            itemView.setOnClickListener {
+                action.onItemClickDetails(item, adapterPosition)
+            }
         }
     }
 
     interface OnItemFavorClickListener{
         fun onItemClick(item: Favor, position: Int)
         fun onItemClickCheck(item: Favor, position: Int)
+        fun onItemClickDetails(item: Favor, position: Int)
     }
 
 }

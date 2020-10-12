@@ -78,4 +78,8 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
 
 
     }
+
+    override fun onItemClickDetails(item: Favor, position: Int) {
+        Log.v("MyOut", "OnClickDetails funcionando  " )
+    }
 }
