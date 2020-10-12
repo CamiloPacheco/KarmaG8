@@ -7,11 +7,25 @@
     android:layout_height="match_parent"
     tools:context="com.cacomas.karmag8.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/message_Recycler"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/linearLayout"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/otherUserTexView"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/message_Recycler"
+            android:layout_width="match_parent"
+            android:layout_height="662dp" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"

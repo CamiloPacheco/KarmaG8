@@ -8,11 +8,21 @@ import com.cacomas.karmag8.R
 import com.cacomas.karmag8.model.Msg
 import kotlinx.android.synthetic.main.item_msg.view.*
 
+var cont:Int=0
+class MsgAdapter (val messages: ArrayList<Msg>,val msgSW :ArrayList<String>): RecyclerView.Adapter<MsgAdapter.ViewHolder>() {
 
-class MsgAdapter (val messages: ArrayList<Msg>): RecyclerView.Adapter<MsgAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =  LayoutInflater.from(parent.context).inflate(R.layout.item_msg, parent, false)
+        var view=LayoutInflater.from(parent.context).inflate(R.layout.item_msg, parent, false)
+        if (msgSW[cont]=="0"){
+                view =  LayoutInflater.from(parent.context).inflate(R.layout.item_msg, parent, false)
+                cont++
+        }
+        else {
+                view =  LayoutInflater.from(parent.context).inflate(R.layout.item_msg2, parent, false)
+                cont++
+        }
+
         return ViewHolder(view)
     }
 
@@ -26,9 +36,8 @@ class MsgAdapter (val messages: ArrayList<Msg>): RecyclerView.Adapter<MsgAdapter
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         fun initialize(item: Msg){
-            itemView.toTextView.text= item.to
-            itemView.fromTextView.text = item.from
             itemView.txtTextView.text=item.txt
 
         }

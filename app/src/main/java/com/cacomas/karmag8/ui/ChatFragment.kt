@@ -19,11 +19,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_chat.view.*
-import kotlinx.android.synthetic.main.fragment_favors.view.*
 
 class ChatFragment : Fragment() {
     private var nombreUsuario : String? = ""
-    private val adapter =MsgAdapter(ArrayList())
+    private val adapter =MsgAdapter(ArrayList(),ArrayList())
     private val msgViewModel: MsgViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
     private var auth: FirebaseAuth = Firebase.auth
@@ -43,7 +42,7 @@ class ChatFragment : Fragment() {
         requireView().message_Recycler.layoutManager = LinearLayoutManager(requireContext())
         var user = auth.currentUser
         var emailId: String = user?.email!!
-
+        view.findViewById<TextView>(R.id.otherUserTexView).text=user1
         profileViewModel.getUser().observe(viewLifecycleOwner, Observer {
             for(usuarios in it){
                 if(usuarios.email == emailId){
@@ -55,13 +54,23 @@ class ChatFragment : Fragment() {
 
        msgViewModel.getMsg().observe(viewLifecycleOwner, Observer {
            val msgAux = ArrayList<Msg>()
+           val msgSw= ArrayList<String>()
            for (item in it) {
               if ((nombreUsuario==item.from && user1==item.to) || (nombreUsuario==item.to && user1==item.from)){
                    msgAux.add(item)
+                  if (nombreUsuario==item.from){
+                      msgSw.add("1")
+                  }
+                  if (nombreUsuario==item.to){
+
+                      msgSw.add("0")
+                  }
+
               }
            }
            adapter.messages.clear()
            adapter.messages.addAll(msgAux)
+           adapter.msgSW.addAll(msgSw)
            adapter.notifyDataSetChanged()
        })
 
