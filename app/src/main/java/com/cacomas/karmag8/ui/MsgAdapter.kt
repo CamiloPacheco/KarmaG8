@@ -8,10 +8,10 @@ import com.cacomas.karmag8.R
 import com.cacomas.karmag8.model.Msg
 import kotlinx.android.synthetic.main.item_msg.view.*
 
-var cont:Int=0
+
 class MsgAdapter (val messages: ArrayList<Msg>,val msgSW :ArrayList<String>): RecyclerView.Adapter<MsgAdapter.ViewHolder>() {
 
-
+    var cont:Int=0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view=LayoutInflater.from(parent.context).inflate(R.layout.item_msg, parent, false)
         if (msgSW[cont]=="0"){

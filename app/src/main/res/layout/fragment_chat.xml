@@ -8,8 +8,8 @@
     tools:context="com.cacomas.karmag8.MainActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="384dp"
+        android:layout_height="500dp"
         android:orientation="vertical">
 
         <TextView
@@ -24,7 +24,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/message_Recycler"
             android:layout_width="match_parent"
-            android:layout_height="662dp" />
+            android:layout_height="444dp" />
     </LinearLayout>
 
     <LinearLayout

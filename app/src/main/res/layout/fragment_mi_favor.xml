@@ -80,14 +80,12 @@
         android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:layout_marginStart="164dp"
-        android:layout_marginTop="310dp"
-        android:layout_marginBottom="104dp"
         android:clickable="true"
         android:src="@drawable/ic_baseline_chat_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/AddFavorButton"
         app:layout_constraintHorizontal_bias="0.74"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FavorStateTxt"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.845" />
 </androidx.constraintlayout.widget.ConstraintLayout>
