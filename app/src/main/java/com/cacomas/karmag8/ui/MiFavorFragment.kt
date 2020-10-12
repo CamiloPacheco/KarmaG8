@@ -31,6 +31,7 @@ class MiFavorFragment : Fragment() {
     private val favorViewModel: MiFavorViewModel by activityViewModels()
     private lateinit var auth: FirebaseAuth
     private lateinit var MyFavor:Favor
+    var realizadoporUser:String=""
 
     init {
         auth = Firebase.auth
@@ -74,9 +75,10 @@ class MiFavorFragment : Fragment() {
                         MyFavor=favor
                         favorName.text = favor.name
                         favorState.text = favor.state
-                        if (favor.state=="Asignado")
+                        if (favor.state=="Asignado"){
                             CheckButton.isVisible=true
-
+                            realizadoporUser= favor.realizadopor.toString()
+                        }
                     }
                 }
 
@@ -91,9 +93,10 @@ class MiFavorFragment : Fragment() {
             val dialogLayout = inflater.inflate(R.layout.add_favor_form, null)
             val editText  = dialogLayout.findViewById<EditText>(R.id.editText)
             val editText2  = dialogLayout.findViewById<EditText>(R.id.editText2)
+            val editText3  = dialogLayout.findViewById<EditText>(R.id.editText3)
             builder.setView(dialogLayout)
             builder.setPositiveButton("OK") { _, _ ->
-                favorViewModel.setFavor(Favor(editText.text.toString(),"Inicial",nombreUsuario,editText2.text.toString(),"","",""))
+                favorViewModel.setFavor(Favor(editText.text.toString(),"Inicial",nombreUsuario,editText2.text.toString(),"","","",editText3.text.toString()))
                 nombreUsuario?.let { it1 -> favorViewModel.karmaPoint(it1,"0") }
 
                 builder.context
@@ -104,6 +107,12 @@ class MiFavorFragment : Fragment() {
 
         view.findViewById<FloatingActionButton>(R.id.CheckButton).setOnClickListener{
             nombreUsuario?.let { it1 -> favorViewModel.endFavor(MyFavor, it1) }
+        }
+        view.findViewById<FloatingActionButton>(R.id.chatButton).setOnClickListener{
+            val navController = findNavController()
+            val bundle = Bundle()
+            bundle.putString("Nombre",realizadoporUser)
+            navController.navigate(R.id.chat, bundle)
         }
     }
 

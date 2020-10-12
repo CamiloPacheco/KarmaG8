@@ -37,6 +37,7 @@ class ChatFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val user1=arguments?.getString("Nombre")
         super.onViewCreated(view, savedInstanceState)
         requireView().message_Recycler.adapter = adapter
         requireView().message_Recycler.layoutManager = LinearLayoutManager(requireContext())
@@ -55,7 +56,7 @@ class ChatFragment : Fragment() {
        msgViewModel.getMsg().observe(viewLifecycleOwner, Observer {
            val msgAux = ArrayList<Msg>()
            for (item in it) {
-              if (nombreUsuario==item.from || nombreUsuario==item.to){
+              if ((nombreUsuario==item.from && user1==item.to) || (nombreUsuario==item.to && user1==item.from)){
                    msgAux.add(item)
               }
            }
@@ -66,8 +67,8 @@ class ChatFragment : Fragment() {
 
         view.findViewById<Button>(R.id.sendButton).setOnClickListener {
            var txt :String = view.findViewById<TextView>(R.id.messageEditText).text.toString()
-            val user=arguments?.getString("Nombre")
-            msgViewModel.setMsg(Msg(txt,nombreUsuario,user))
+
+            msgViewModel.setMsg(Msg(txt,nombreUsuario,user1))
         }
     }
 

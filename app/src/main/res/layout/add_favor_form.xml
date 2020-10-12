@@ -16,4 +16,12 @@
         android:layout_height="wrap_content"
         android:hint=" Description" />
 
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Adress"
+        android:inputType="textPersonName" />
+
 </LinearLayout>

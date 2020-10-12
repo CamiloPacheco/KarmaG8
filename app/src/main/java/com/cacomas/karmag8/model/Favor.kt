@@ -9,5 +9,6 @@ data class Favor (
     val descripcion: String? = "",
     val terminado1: String? = "",
     val terminado2: String? = "",
-    var realizadopor: String? = ""
+    var realizadopor: String? = "",
+    var adress: String? = ""
 )

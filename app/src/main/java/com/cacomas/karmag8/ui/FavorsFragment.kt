@@ -81,27 +81,32 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
     }
 
     override fun onItemClickDetails(item: Favor, position: Int) {
-        Log.v("MyOut", "OnClickDetails funcionando  ")
-        val builder = AlertDialog.Builder(this.context)
-        val inflater = layoutInflater
-        builder.setTitle("item.name")
-        builder.setMessage(
-            "state :" + item.state + "\n" +
-                    "Description:" + item.descripcion + "\n" +
-                    "Created by :" + item.user + "\n" +
-                    "Acepted by : " + item.realizadopor + "\n"
 
-        )
-        builder.setPositiveButton("OK") { _, _ ->
-            builder.context
+        if(item.state=="Asignado" && item.realizadopor==nombreUsuario) {
+            Log.v("MyOut", "OnClickDetails funcionando  ")
+            val builder = AlertDialog.Builder(this.context)
+            val inflater = layoutInflater
+            builder.setTitle(item.name)
+            builder.setMessage(
+                "state :" + item.state + "\n" +
+                        "Description:" + item.descripcion + "\n" +
+                        "Adress: " + item.adress+ "\n"+
+                        "Created by :" + item.user + "\n" +
+                        "Acepted by : " + item.realizadopor + "\n"
+
+
+            )
+            builder.setPositiveButton("OK") { _, _ ->
+                builder.context
+            }
+            builder.setNegativeButton("Chat") { _, _ ->
+                val navController = findNavController()
+                val bundle = Bundle()
+                bundle.putString("Nombre", item.user)
+                navController.navigate(R.id.chat, bundle)
+                builder.context
+            }
+            builder.show()
         }
-        builder.setNegativeButton("Chat") { _, _ ->
-            val navController = findNavController()
-            val bundle = Bundle()
-            bundle.putString("Nombre",item.user)
-            navController.navigate(R.id.chat,bundle)
-            builder.context
-        }
-        builder.show()
     }
 }
