@@ -27,8 +27,9 @@ class MsgAdapter (val messages: ArrayList<Msg>): RecyclerView.Adapter<MsgAdapter
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun initialize(item: Msg){
-            itemView.msgTextView.text= item.txt
-            itemView.userTextView.text = item.user
+            itemView.toTextView.text= item.to
+            itemView.fromTextView.text = item.from
+            itemView.txtTextView.text=item.txt
 
         }
     }

@@ -1,14 +1,15 @@
 package com.cacomas.karmag8.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cacomas.karmag8.R
 import com.cacomas.karmag8.model.Favor
@@ -50,36 +51,57 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
         var emailId: String = user?.email!!
 
         profileViewModel.getUser().observe(viewLifecycleOwner, Observer {
-            for(usuarios in it){
-                if(usuarios.email == emailId){
+            for (usuarios in it) {
+                if (usuarios.email == emailId) {
                     nombreUsuario = usuarios.username
-                    Log.v("MyOut", "usuario encontrado " +nombreUsuario)
+                    Log.v("MyOut", "usuario encontrado " + nombreUsuario)
                 }
             }
         })
         favorViewModel.getFavor().observe(viewLifecycleOwner, Observer {
             adapter.favors.clear()
             adapter.favors.addAll(it)
-            adapter.userName= nombreUsuario.toString()
+            adapter.userName = nombreUsuario.toString()
             adapter.notifyDataSetChanged()
         })
 
     }
 
     override fun onItemClick(item: Favor, position: Int) {
-        Log.v("MyOut", "OnClickAceptarButton funcionando " )
+        Log.v("MyOut", "OnClickAceptarButton funcionando ")
         item.realizadopor= nombreUsuario
         favorViewModel.updateFavor(item)
     }
 
     override fun onItemClickCheck(item: Favor, position: Int) {
-        Log.v("MyOut", "OnClickCheckButton funcionando  " )
+        Log.v("MyOut", "OnClickCheckButton funcionando  ")
         nombreUsuario?.let { favorViewModel.endFavor(item, it) }
 
 
     }
 
     override fun onItemClickDetails(item: Favor, position: Int) {
-        Log.v("MyOut", "OnClickDetails funcionando  " )
+        Log.v("MyOut", "OnClickDetails funcionando  ")
+        val builder = AlertDialog.Builder(this.context)
+        val inflater = layoutInflater
+        builder.setTitle("item.name")
+        builder.setMessage(
+            "state :" + item.state + "\n" +
+                    "Description:" + item.descripcion + "\n" +
+                    "Created by :" + item.user + "\n" +
+                    "Acepted by : " + item.realizadopor + "\n"
+
+        )
+        builder.setPositiveButton("OK") { _, _ ->
+            builder.context
+        }
+        builder.setNegativeButton("Chat") { _, _ ->
+            val navController = findNavController()
+            val bundle = Bundle()
+            bundle.putString("Nombre",item.user)
+            navController.navigate(R.id.chat,bundle)
+            builder.context
+        }
+        builder.show()
     }
 }

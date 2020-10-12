@@ -4,5 +4,6 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class Msg (
         val txt: String? = "",
-        val user: String? = ""
+        val from: String? = "",
+        val to: String? = ""
 )

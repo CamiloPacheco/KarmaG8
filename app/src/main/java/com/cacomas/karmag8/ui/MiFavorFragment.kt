@@ -94,6 +94,8 @@ class MiFavorFragment : Fragment() {
             builder.setView(dialogLayout)
             builder.setPositiveButton("OK") { _, _ ->
                 favorViewModel.setFavor(Favor(editText.text.toString(),"Inicial",nombreUsuario,editText2.text.toString(),"","",""))
+                nombreUsuario?.let { it1 -> favorViewModel.karmaPoint(it1,"0") }
+
                 builder.context
             }
             builder.show()

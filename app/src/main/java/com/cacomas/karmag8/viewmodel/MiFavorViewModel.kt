@@ -11,4 +11,5 @@ class MiFavorViewModel: ViewModel() {
     fun getFavor()=repository.getFavor()
     fun updateFavor(favor:Favor)=repository.updateFavor(favor)
     fun endFavor(favor:Favor,currentUser:String)=repository.endFavor(favor,currentUser)
+    fun karmaPoint(user:String,sw: String)=repository.KarmaPoint(user,sw)
 }

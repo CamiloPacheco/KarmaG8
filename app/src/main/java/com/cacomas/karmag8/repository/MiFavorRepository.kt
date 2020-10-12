@@ -118,8 +118,8 @@ class MiFavorRepository {
                         //"it" is the snapshot
                         val karma: Karma= it.getValue(Karma::class.java)!!
                         if(user==karma.user){
+                            var puntos: Int? =karma.puntos?.toInt()
                             if (sw=="1") {
-                                var puntos: Int? =karma.puntos?.toInt()
                                 if (puntos != null) {
                                     puntos=puntos+1
                                 }
@@ -127,8 +127,11 @@ class MiFavorRepository {
                                     .child("puntos").setValue(puntos.toString())
                             }
                             else {
+                                if (puntos != null) {
+                                    puntos=puntos-2
+                                }
                                 database.child("Karma").child(it.key.toString())
-                                    .child("puntos").setValue((karma.puntos?.toInt() ?: -2).toString())
+                                    .child("puntos").setValue(puntos.toString())
                             }
                         }
                     }
