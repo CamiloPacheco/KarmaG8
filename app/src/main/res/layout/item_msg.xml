@@ -29,6 +29,8 @@
                 android:id="@+id/txtTextView"
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
+                android:background="@drawable/my_bubble_shape"
+                android:gravity="center_vertical"
                 android:text="TextView" />
 
         </LinearLayout>

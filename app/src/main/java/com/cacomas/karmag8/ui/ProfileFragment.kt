@@ -60,13 +60,20 @@ class ProfileFragment : Fragment() {
         profileViewModel.getFavor().observe(viewLifecycleOwner, Observer {
             var contador = 0
             val arrayFavores = mutableListOf<Favor>()
+            val alrevez = mutableListOf<Favor>()
+            var tam = it.size
+            for(elem in it){
+                alrevez.add(it[tam-1])
+                tam -= 1
+            }
 
-            for (obj in it){
+            for (obj in alrevez){
                 if(obj.realizadopor.equals(nombreUsuario)   && contador<3){
                     arrayFavores.add(obj)
                     contador++
                 }
             }
+
             if(arrayFavores.size > 0){
                 view.findViewById<TextView>(R.id.nameFavor1).text = arrayFavores[0].name
                 view.findViewById<TextView>(R.id.idFavor1).text = arrayFavores[0].descripcion
