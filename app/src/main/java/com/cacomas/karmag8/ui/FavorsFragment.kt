@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cacomas.karmag8.R
 import com.cacomas.karmag8.model.Favor
+import com.cacomas.karmag8.model.Karma
 import com.cacomas.karmag8.viewmodel.MiFavorViewModel
 import com.cacomas.karmag8.viewmodel.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +28,7 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
     private val adapter =FavorAdapter(ArrayList(), userName, this)
     private val favorViewModel: MiFavorViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
+    private lateinit var karmas : List<Karma>
     private lateinit var auth: FirebaseAuth
 
     init {
@@ -58,9 +61,26 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
                 }
             }
         })
+
+        profileViewModel.getKarma().observe(viewLifecycleOwner, Observer {
+            karmas = it
+        })
+
         favorViewModel.getFavor().observe(viewLifecycleOwner, Observer {
+            val favoresFiltrados  = ArrayList<Favor>()
+            Log.v("MyOut", "Lista de favores "+it)
+            for (karma in karmas){
+                Log.v("MyOut", "Entra al para karma ")
+               for (favor in it){
+                   Log.v("MyOut", "Entra al favor: "+favor.name+" con usuario: "+favor.user)
+                   if(favor.user == karma.user){
+                       favoresFiltrados.add(favor)
+                   }
+               }
+            }
+
             adapter.favors.clear()
-            adapter.favors.addAll(it)
+            adapter.favors.addAll(favoresFiltrados)
             adapter.userName = nombreUsuario.toString()
             adapter.notifyDataSetChanged()
         })

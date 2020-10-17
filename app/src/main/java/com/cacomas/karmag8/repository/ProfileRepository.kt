@@ -64,7 +64,10 @@ class ProfileRepository {
                     //Log.v("MyOut", "" + childDataSnapshot.getKey()); //displays the key for the node
                     Log.v("MyOut", "Puntos:" + karma.puntos+" usuario: "+karma.user);
                     karmaList.add(karma)
+                    Log.v("MyOut", "Lista sin ordenar "+karmaList)
                 }
+                karmaList.sortByDescending { it.puntos }
+                Log.v("MyOut", "Lista ordenada "+karmaList);
                 karmaResponse.value = karmaList
 
             }
