@@ -34,8 +34,8 @@ class FavorAdapter(val favors: ArrayList<Favor>, var userName: String, var click
         fun initialize(item: Favor,name: String, action:OnItemFavorClickListener){
 
             itemView.FavorNameTxt.text= item.name
-            itemView.FavorUserTxt.text = item.user
-            itemView.FavorStateTxt.text= item.state
+            itemView.FavorUserTxt.text ="Creado Por : "+ item.user
+            itemView.FavorStateTxt.text= "Estado : "+item.state
             if ( name!=item.user){
 
                 if(item.state=="Asignado"){

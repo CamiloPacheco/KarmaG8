@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.add_favor_form.*
+import kotlinx.android.synthetic.main.fragment_mi_favor.*
 
 class MiFavorFragment : Fragment() {
 
@@ -74,7 +75,8 @@ class MiFavorFragment : Fragment() {
                     if(favor.user == nombreUsuario){
                         MyFavor=favor
                         favorName.text = favor.name
-                        favorState.text = favor.state
+                        favorState.text ="Estado: "+favor.state
+                        RealizadoporTxt.text="Siendo Reliazado por: "+favor.realizadopor
                         if (favor.state=="Asignado"){
                             CheckButton.isVisible=true
                             realizadoporUser= favor.realizadopor.toString()
@@ -87,16 +89,23 @@ class MiFavorFragment : Fragment() {
         })
 
         view.findViewById<FloatingActionButton>(R.id.AddFavorButton).setOnClickListener {
+            val singleItems = arrayOf("Sacar Fotocopias", "Comprar en KM5", "Buscar Domicilio en Puerta 7")
+            val checkedItem = 1
             val builder = AlertDialog.Builder(this.context)
             val inflater = layoutInflater
+            var editText=""
             builder.setTitle("Add Favor")
+            builder.setSingleChoiceItems(singleItems, checkedItem) { dialog, which ->
+            // Respond to item chosen
+                editText=singleItems[checkedItem]
+
+            }
             val dialogLayout = inflater.inflate(R.layout.add_favor_form, null)
-            val editText  = dialogLayout.findViewById<EditText>(R.id.editText)
             val editText2  = dialogLayout.findViewById<EditText>(R.id.editText2)
             val editText3  = dialogLayout.findViewById<EditText>(R.id.editText3)
             builder.setView(dialogLayout)
             builder.setPositiveButton("OK") { _, _ ->
-                favorViewModel.setFavor(Favor(editText.text.toString(),"Inicial",nombreUsuario,editText2.text.toString(),"","","",editText3.text.toString()))
+                favorViewModel.setFavor(Favor(editText.toString(),"Inicial",nombreUsuario,editText2.text.toString(),"","","Pendiente ",editText3.text.toString()))
                 nombreUsuario?.let { it1 -> favorViewModel.karmaPoint(it1,"0") }
 
                 builder.context
