@@ -79,6 +79,7 @@ class ProfileRepository {
             }
         }
         database.child("Karma").addValueEventListener(postListener)
+        viewFavor()
     }
 
     fun viewUser(){
@@ -105,8 +106,6 @@ class ProfileRepository {
         }
         database.child("users").addValueEventListener(postListener)
         viewKarma()
-        viewFavor()
-
     }
 
     fun logOut(){

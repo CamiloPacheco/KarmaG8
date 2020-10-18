@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cacomas.karmag8.R
 import com.cacomas.karmag8.model.Msg
@@ -82,6 +83,7 @@ class ChatFragment : Fragment() {
             view.findViewById<TextView>(R.id.messageEditText).text=""
             msgViewModel.setMsg(Msg(txt,nombreUsuario,user1))
         }
+
     }
 
 }

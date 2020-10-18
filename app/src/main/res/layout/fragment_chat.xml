@@ -38,19 +38,19 @@
 
         <EditText
             android:id="@+id/messageEditText"
-            android:layout_width="0dp"
+            android:layout_width="85dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/sendButton"
-            android:layout_width="wrap_content"
+            android:layout_width="109dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:enabled="true"
-            android:textColor="#2C2929"
-            android:text="SEND"/>
+            android:text="SEND"
+            android:textColor="#2C2929" />
 
     </LinearLayout>
 

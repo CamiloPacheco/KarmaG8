@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,8 +28,8 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
     var userName =""
     var nombreUsuario : String? = ""
     private val adapter =FavorAdapter(ArrayList(), userName, this)
-    private val favorViewModel: MiFavorViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
+    private val favorViewModel: MiFavorViewModel by activityViewModels()
     private var karmas : List<Karma>? =null
     private var auth: FirebaseAuth = Firebase.auth
 
@@ -61,43 +62,30 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
 
 
         editTextFilledExposedDropdown.setOnItemClickListener { adapterView, view, i, l ->
+            val aux = ArrayList<Favor>()
             favorViewModel.getFavor().observe(viewLifecycleOwner, Observer {
-                val favoresFiltrados = ArrayList<Favor>()
-                Log.v("MyOut", "Filtro: " + editTextFilledExposedDropdown.text)
-                Log.v("MyOut", "Lista de favores " + it)
-                for (karma in karmas!!) {
-                    Log.v("MyOut", "Entra al para karma ")
-                    for (favor in it) {
-                        Log.v("MyOut", "Entra al favor: " + favor.name + " con usuario: " + favor.user)
-                        if (favor.user == karma.user  && favor.name==editTextFilledExposedDropdown.text.toString() || favor.user == karma.user  && "Todos"==editTextFilledExposedDropdown.text.toString() ) {
-                            favoresFiltrados.add(favor)
-                        }
+                for (favor in it){
+                    if (favor.name==editTextFilledExposedDropdown.text.toString()|| editTextFilledExposedDropdown.text.toString()=="Todos" ){
+                            aux.add(favor)
                     }
+
+
                 }
 
-                adapter.favors.clear()
-                adapter.favors.addAll(favoresFiltrados)
-                adapter.userName = nombreUsuario.toString()
-                adapter.notifyDataSetChanged()
+                    adapter.favors.clear()
+                    adapter.favors.addAll(aux)
+                    adapter.userName = nombreUsuario.toString()
+                    adapter.notifyDataSetChanged()
+
+
+
             })
 
         }
         favorViewModel.getFavor().observe(viewLifecycleOwner, Observer {
-            val favoresFiltrados = ArrayList<Favor>()
-            Log.v("MyOut", "Filtro: " + editTextFilledExposedDropdown.text)
-            Log.v("MyOut", "Lista de favores " + it)
-            for (karma in karmas!!) {
-                Log.v("MyOut", "Entra al para karma ")
-                for (favor in it) {
-                    Log.v("MyOut", "Entra al favor: " + favor.name + " con usuario: " + favor.user)
-                    if (favor.user == karma.user) {
-                        favoresFiltrados.add(favor)
-                    }
-                }
-            }
 
             adapter.favors.clear()
-            adapter.favors.addAll(favoresFiltrados)
+            adapter.favors.addAll(it)
             adapter.userName = nombreUsuario.toString()
             adapter.notifyDataSetChanged()
         })

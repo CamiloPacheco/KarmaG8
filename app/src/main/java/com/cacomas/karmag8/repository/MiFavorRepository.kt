@@ -14,18 +14,49 @@ import com.google.firebase.ktx.Firebase
 class MiFavorRepository {
     val favorResponse = MutableLiveData<List<Favor>>()
     val favorList = mutableListOf<Favor>()
+    val karmaResponse = MutableLiveData<List<Karma>>()
+    val karmaList = mutableListOf<Karma>()
+
     private val database = Firebase.database.reference
-
-
     init{
-        viewFavor()
+        viewKarma()
     }
     fun setFavor(favor:Favor) {
         database.child("Mifavor").push().setValue(favor)
         viewFavor()
     }
     fun getFavor() = favorResponse
+
+    fun viewKarma() {
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                karmaList.clear()
+                for (childDataSnapshot in dataSnapshot.children) {
+                    //val message: Msg = childDataSnapshot.getValue(Msg::class.java)!!
+                    val karma: Karma = childDataSnapshot.getValue(Karma::class.java)!!
+                    //Log.v("MyOut", "" + childDataSnapshot.getKey()); //displays the key for the node
+                    Log.v("MyOut", "Puntos:" + karma.puntos+" usuario: "+karma.user);
+                    karmaList.add(karma)
+                    Log.v("MyOut", "Lista sin ordenar "+karmaList)
+                }
+                karmaList.sortByDescending { it.puntos }
+                Log.v("MyOut", "Lista ordenada "+karmaList);
+                karmaResponse.value = karmaList
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("MyOut", "loadPost:onCancelled", databaseError.toException())
+                // ...
+            }
+
+        }
+        database.child("Karma").addValueEventListener(postListener)
+        viewFavor()
+    }
     fun viewFavor() {
+
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 favorList.clear()
@@ -33,7 +64,18 @@ class MiFavorRepository {
                     val favor: Favor = childDataSnapshot.getValue(Favor::class.java)!!
                     favorList.add(favor)
                 }
-                favorResponse.value = favorList
+
+                val favoresFiltrados = ArrayList<Favor>()
+                for (karma in karmaList !!) {
+                    Log.v("MyOut", "Entra al para karma ")
+                    for (favor in favorList) {
+                        Log.v("MyOut", "Entra al favor: " + favor.name + " con usuario: " + favor.user)
+                        if (favor.user == karma.user ) {
+                            favoresFiltrados.add(favor)
+                        }
+                    }
+                }
+                favorResponse.value = favoresFiltrados
 
             }
 
