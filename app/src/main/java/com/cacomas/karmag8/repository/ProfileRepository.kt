@@ -104,8 +104,9 @@ class ProfileRepository {
 
         }
         database.child("users").addValueEventListener(postListener)
-        viewFavor()
         viewKarma()
+        viewFavor()
+
     }
 
     fun logOut(){

@@ -15,17 +15,36 @@
         android:text="Favores"
         android:textColor="#020202"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/favors_Recycler"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.756" />
+        app:layout_constraintVertical_bias="0.793" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="302dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="64dp"
+        android:hint="Filter"
+        app:layout_constraintBottom_toTopOf="@+id/favors_Recycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.745">
+
+        <AutoCompleteTextView
+            android:id="@+id/filled_exposed_dropdown"
+            android:layout_width="265dp"
+            android:layout_height="59dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favors_Recycler"
-        android:layout_width="398dp"
-        android:layout_height="441dp"
+        android:layout_width="366dp"
+        android:layout_height="381dp"
         android:clipToPadding="false"
         android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"

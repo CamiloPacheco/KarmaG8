@@ -60,20 +60,19 @@
                     android:id="@+id/Aceptarbutton"
                     android:layout_width="104dp"
                     android:layout_height="wrap_content"
-                    android:background="#6200EE"
+                    android:background="@color/colorAccent"
                     android:text="Aceptar"
-                    android:textColor="#ffff" />
+                    android:textColor="#252323" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/CheckButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#6200EE"
                     android:clickable="true"
                     android:src="@android:drawable/ic_menu_send"
                     android:visibility="invisible"
-                    app:backgroundTint="#6200EE" />
+                    app:backgroundTint="@color/colorAccent" />
             </LinearLayout>
 
         </LinearLayout>

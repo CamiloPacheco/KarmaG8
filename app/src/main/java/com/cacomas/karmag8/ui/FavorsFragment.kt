@@ -1,14 +1,14 @@
 package com.cacomas.karmag8.ui
-
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,19 +22,15 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_favors.view.*
 
+
 class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
     var userName =""
     var nombreUsuario : String? = ""
     private val adapter =FavorAdapter(ArrayList(), userName, this)
     private val favorViewModel: MiFavorViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
-    private lateinit var karmas : List<Karma>
-    private lateinit var auth: FirebaseAuth
-
-    init {
-        auth = Firebase.auth
-
-    }
+    private var karmas : List<Karma>? =null
+    private var auth: FirebaseAuth = Firebase.auth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,10 +44,64 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
         super.onViewCreated(view, savedInstanceState)
         requireView().favors_Recycler.adapter = adapter
         requireView().favors_Recycler.layoutManager = LinearLayoutManager(requireContext())
+        val COUNTRIES = arrayOf("Sacar Fotocopias", "Comprar en KM5", "Buscar Domicilio","Todos")
 
+        val adapter1 = ArrayAdapter(
+            requireContext(), R.layout.dropdown_menu_popup_item,
+            COUNTRIES
+        )
+
+        val editTextFilledExposedDropdown: AutoCompleteTextView =
+            view.findViewById(R.id.filled_exposed_dropdown)
+        editTextFilledExposedDropdown.setAdapter(adapter1)
+
+        editTextFilledExposedDropdown.onItemSelectedListener
         var user = auth.currentUser
-
         var emailId: String = user?.email!!
+
+
+        editTextFilledExposedDropdown.setOnItemClickListener { adapterView, view, i, l ->
+            favorViewModel.getFavor().observe(viewLifecycleOwner, Observer {
+                val favoresFiltrados = ArrayList<Favor>()
+                Log.v("MyOut", "Filtro: " + editTextFilledExposedDropdown.text)
+                Log.v("MyOut", "Lista de favores " + it)
+                for (karma in karmas!!) {
+                    Log.v("MyOut", "Entra al para karma ")
+                    for (favor in it) {
+                        Log.v("MyOut", "Entra al favor: " + favor.name + " con usuario: " + favor.user)
+                        if (favor.user == karma.user  && favor.name==editTextFilledExposedDropdown.text.toString() || favor.user == karma.user  && "Todos"==editTextFilledExposedDropdown.text.toString() ) {
+                            favoresFiltrados.add(favor)
+                        }
+                    }
+                }
+
+                adapter.favors.clear()
+                adapter.favors.addAll(favoresFiltrados)
+                adapter.userName = nombreUsuario.toString()
+                adapter.notifyDataSetChanged()
+            })
+
+        }
+        favorViewModel.getFavor().observe(viewLifecycleOwner, Observer {
+            val favoresFiltrados = ArrayList<Favor>()
+            Log.v("MyOut", "Filtro: " + editTextFilledExposedDropdown.text)
+            Log.v("MyOut", "Lista de favores " + it)
+            for (karma in karmas!!) {
+                Log.v("MyOut", "Entra al para karma ")
+                for (favor in it) {
+                    Log.v("MyOut", "Entra al favor: " + favor.name + " con usuario: " + favor.user)
+                    if (favor.user == karma.user) {
+                        favoresFiltrados.add(favor)
+                    }
+                }
+            }
+
+            adapter.favors.clear()
+            adapter.favors.addAll(favoresFiltrados)
+            adapter.userName = nombreUsuario.toString()
+            adapter.notifyDataSetChanged()
+        })
+
 
         profileViewModel.getUser().observe(viewLifecycleOwner, Observer {
             for (usuarios in it) {
@@ -66,24 +116,7 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
             karmas = it
         })
 
-        favorViewModel.getFavor().observe(viewLifecycleOwner, Observer {
-            val favoresFiltrados  = ArrayList<Favor>()
-            Log.v("MyOut", "Lista de favores "+it)
-            for (karma in karmas){
-                Log.v("MyOut", "Entra al para karma ")
-               for (favor in it){
-                   Log.v("MyOut", "Entra al favor: "+favor.name+" con usuario: "+favor.user)
-                   if(favor.user == karma.user){
-                       favoresFiltrados.add(favor)
-                   }
-               }
-            }
 
-            adapter.favors.clear()
-            adapter.favors.addAll(favoresFiltrados)
-            adapter.userName = nombreUsuario.toString()
-            adapter.notifyDataSetChanged()
-        })
 
     }
 
@@ -110,7 +143,7 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
             builder.setMessage(
                 "state :" + item.state + "\n" +
                         "Description:" + item.descripcion + "\n" +
-                        "Adress: " + item.adress+ "\n"+
+                        "Adress: " + item.adress + "\n" +
                         "Created by :" + item.user + "\n" +
                         "Acepted by : " + item.realizadopor + "\n"
 

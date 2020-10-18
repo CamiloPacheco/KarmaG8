@@ -89,7 +89,7 @@ class MiFavorFragment : Fragment() {
         })
 
         view.findViewById<FloatingActionButton>(R.id.AddFavorButton).setOnClickListener {
-            val singleItems = arrayOf("Sacar Fotocopias", "Comprar en KM5", "Buscar Domicilio en Puerta 7")
+            val singleItems = arrayOf("Sacar Fotocopias", "Comprar en KM5", "Buscar Domicilio")
             val checkedItem = 1
             val builder = AlertDialog.Builder(this.context)
             val inflater = layoutInflater

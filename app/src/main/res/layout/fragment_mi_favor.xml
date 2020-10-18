@@ -84,7 +84,7 @@
                     android:clickable="true"
                     android:src="@android:drawable/ic_menu_send"
                     android:visibility="invisible"
-                    app:backgroundTint="#6200EE"
+                    app:backgroundTint="@color/colorAccent"
                     app:fabSize="auto" />
 
             </LinearLayout>
@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:src="@drawable/ic_baseline_add_24"
-        app:backgroundTint="#6200EE"
+        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.864"
@@ -113,7 +113,7 @@
         android:layout_marginEnd="20dp"
         android:clickable="true"
         android:src="@drawable/ic_baseline_chat_24"
-        app:backgroundTint="#6200EE"
+        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/AddFavorButton"
         app:layout_constraintHorizontal_bias="0.978"
