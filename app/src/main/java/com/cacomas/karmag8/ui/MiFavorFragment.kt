@@ -95,9 +95,9 @@ class MiFavorFragment : Fragment() {
             val inflater = layoutInflater
             var editText=""
             builder.setTitle("Add Favor")
-            builder.setSingleChoiceItems(singleItems, checkedItem) { dialog, which ->
+            builder.setSingleChoiceItems(singleItems, checkedItem) { dialog, it_ ->
             // Respond to item chosen
-                editText=singleItems[checkedItem]
+                editText=singleItems[it_]
 
             }
             val dialogLayout = inflater.inflate(R.layout.add_favor_form, null)

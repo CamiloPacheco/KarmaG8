@@ -76,9 +76,7 @@ class FavorsFragment : Fragment(), FavorAdapter.OnItemFavorClickListener {
                     adapter.favors.addAll(aux)
                     adapter.userName = nombreUsuario.toString()
                     adapter.notifyDataSetChanged()
-
-
-
+                
             })
 
         }

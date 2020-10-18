@@ -39,7 +39,7 @@ class RegisterRepository {
                     val user = auth.currentUser
                     if (user != null) {
                         writeNewUser(User(user.email, user.uid,username))
-                        var karma = Karma(username,"5")
+                        var karma = Karma(username,"2")
                         database.child("Karma").push().setValue(karma)
                     }
                     userCreated.value = true;
